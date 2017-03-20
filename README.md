@@ -10,10 +10,9 @@ yarn run build
 
 ## TODO : 
 
-### Make better build for prod :
-* Add Html loader plugin
-* Add css autoprefixer
-* Add copy webpack plugin
+* Live reload
+* autoprefixer
+* using shaders w/ webpack 
 
 ### Linting
 * Add EsLint
