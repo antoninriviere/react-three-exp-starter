@@ -1,15 +1,11 @@
-import styles from '../styles/app.styl'
-
-
 import { TweenMax } from "gsap"
 
 import SceneObj from './scene/scene'
 
 class App {
 
-    constructor() {
-
-        this.scene = new SceneObj()
+    constructor(canvas) {
+        this.scene = new SceneObj(canvas)
 
         this.DELTA_TIME = 0
         this.LAST_TIME = Date.now()

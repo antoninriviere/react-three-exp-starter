@@ -1,10 +1,10 @@
-const webpack = require('webpack');
-const path = require('path');
+// const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   context: path.resolve(__dirname, '../src/scripts'),
   entry: {
-    app: './index.js',
+    app: './index.js'
   },
   output: {
     filename: '[name].bundle.js',
@@ -17,23 +17,29 @@ module.exports = {
         test: /\.js$/,
         use: [{
           loader: 'babel-loader',
-          options: { presets: ['es2015', 'react'] },
+          options: { presets: ['es2015', 'react'] }
         }],
-        exclude: [/node_modules/],
+        exclude: [/node_modules/]
       },
       {
         test: /\.styl$/,
         use: [
-          'style-loader', 
+          'style-loader',
           'css-loader',
           {
             loader: 'stylus-loader',
             options: {
             }
-          }],
-      },
-    ],
+          }]
+      }
+    ]
   },
+  resolve: {
+    alias: {
+      WebGL: path.resolve(__dirname, '../src/scripts/webgl/'),
+      Styles: path.resolve(__dirname, '../src/styles/')
+    }
+  }
   /*plugins: [
     new ExtractTextPlugin({
       filename: '[name].bundle.css',

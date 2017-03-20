@@ -2,11 +2,13 @@ import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMa
 
 class SceneObj {
 
-  constructor () {
+  constructor (canvas) {
+    this.canvas = canvas;
+
     this.width = window.innerWidth
     this.height = window.innerHeight
 
-    this.renderer = new WebGLRenderer(this.width, this.height, { antialias: true })
+    this.renderer = new WebGLRenderer(this.width, this.height, {canvas: this.canvas, antialias: true })
     this.camera = new PerspectiveCamera(45, this.width / this.height, 1, 2000)
     this.scene = new Scene()
 
@@ -16,10 +18,10 @@ class SceneObj {
     const mesh = new Mesh(geometry, material)
     this.scene.add(mesh)
 
-    console.log(this.scene)
-
     this.renderer.setSize(this.width, this.height)
-    document.body.appendChild(this.renderer.domElement)
+    this.canvas.appendChild( this.renderer.domElement );
+
+    console.log(this.renderer)
 
     this.camera.position.z = 1000
   }
