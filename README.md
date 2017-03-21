@@ -10,9 +10,8 @@ yarn run build
 
 ## TODO : 
 
-* Live reload
 * autoprefixer
-* using shaders w/ webpack 
+* global clean
 
 ### Linting
 * Add EsLint

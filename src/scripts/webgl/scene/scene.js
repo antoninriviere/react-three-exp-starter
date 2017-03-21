@@ -4,12 +4,13 @@ import Stats from 'stats-js'
 
 import OrbitControls from 'orbit-controls'
 
+import ControlKit from 'controlkit'
+
 import Wagner from '@superguigui/wagner'
 import VignettePass from '@superguigui/wagner/src/passes/vignette/VignettePass'
 import GlitchPass from '@superguigui/wagner/src/passes/glitch/GlitchPass'
 
 class SceneObj {
-
   constructor (canvas) {
     this.canvas = canvas
 
@@ -20,15 +21,15 @@ class SceneObj {
       usePostProcessing: true
     }
 
-    this.renderer = new WebGLRenderer(this.width, this.height, {canvas: this.canvas, antialias: true })
+    this.renderer = new WebGLRenderer(this.width, this.height, { canvas: this.canvas, antialias: true })
     this.camera = new PerspectiveCamera(45, this.width / this.height, 1, 2000)
     this.scene = new Scene()
 
     const geometry = new BoxGeometry(200, 200, 200)
     const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 
-    const mesh = new Mesh(geometry, material)
-    this.scene.add(mesh)
+    this.mesh = new Mesh(geometry, material)
+    this.scene.add(this.mesh)
 
     this.renderer.setSize(this.width, this.height)
     this.renderer.setClearColor(0xFFFFFF, 1)
@@ -36,14 +37,22 @@ class SceneObj {
 
     this.camera.position.z = 1000
 
+    this.initGui()
     this.initControls()
     this.initPostProcessing()
     this.initStats()
   }
 
+  initGui () {
+    this.gui = new ControlKit()
+    this.mesh.position.range = [-10, 10]
+    this.gui.addPanel().addSlider(this.mesh.position, 'y', 'range')
+  }
+
   initControls () {
     this.controls = new OrbitControls({
-      position: this.camera.position.toArray()
+      position: this.camera.position.toArray(),
+      parent: this.renderer.domElement
     })
     this.target = new Vector3()
     this.camera.lookAt(this.target)
