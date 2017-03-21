@@ -11,6 +11,7 @@ yarn run build
 ## TODO : 
 
 * autoprefixer
+* fix HMR or use express
 * global clean
 
 ### Linting
@@ -20,4 +21,4 @@ yarn run build
 * Add stylint loader
 
 
-By http://antonin.space
+By http://antonin.space & https://y-j.io
