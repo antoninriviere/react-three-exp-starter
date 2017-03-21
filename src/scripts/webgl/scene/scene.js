@@ -1,4 +1,7 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
+import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial, Vector3 } from 'three'
+
+import OrbitControls from 'orbit-controls'
+
 import Wagner from '@superguigui/wagner'
 import VignettePass from '@superguigui/wagner/src/passes/vignette/VignettePass'
 import GlitchPass from '@superguigui/wagner/src/passes/glitch/GlitchPass'
@@ -31,6 +34,10 @@ class SceneObj {
 
     this.camera.position.z = 1000
 
+    this.controls = new OrbitControls()
+    this.target = new Vector3()
+    this.camera.lookAt(this.target)
+
     this.initPostProcessing()
   }
 
@@ -53,12 +60,17 @@ class SceneObj {
   }
 
   render () {
+    this.controls.update()
+    this.camera.position.fromArray(this.controls.position)
+    this.camera.up.fromArray(this.controls.up)
+    this.camera.lookAt(this.target.fromArray(this.controls.direction))
+
     // this.renderer.render(this.scene, this.camera)
     this.composer.reset()
     this.composer.render(this.scene, this.camera)
     if (this.options.usePostProcessing === true) {
       this.composer.pass(this.vignettePass)
-      this.composer.pass(this.glitchPass)
+      //this.composer.pass(this.glitchPass)
     }
     this.composer.toScreen()
   }
