@@ -9,7 +9,7 @@ module.exports = {
     app: './index.js',
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: 'app.bundle.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/static/'
   },

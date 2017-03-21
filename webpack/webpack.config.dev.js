@@ -1,15 +1,18 @@
-// const webpack = require('webpack')
+const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
   context: path.resolve(__dirname, '../src/scripts'),
-  entry: {
-    app: './index.js'
-  },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './index.js'
+  ],
   output: {
-    filename: '[name].bundle.js',
+    filename: 'app.bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/static/'
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -39,14 +42,15 @@ module.exports = {
       WebGL: path.resolve(__dirname, '../src/scripts/webgl/'),
       Styles: path.resolve(__dirname, '../src/styles/')
     }
-  }
-  /*plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].bundle.css',
-      allChunks: true,
-    }),
-  ],*/
-  /*devServer: {
-    contentBase: path.resolve(__dirname),
-  },*/
-};
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ]
+  /*
+  devServer: {
+    hot: true,
+    contentBase: path.resolve(__dirname, '../dist'),
+    publicPath: '/static/'
+  }*/
+}

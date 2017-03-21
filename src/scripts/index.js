@@ -1,7 +1,23 @@
-import App from './components/app'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const app = new App()
+import App from './components/app'
 
-ReactDOM.render(<App />, document.getElementById('container'))
+import { AppContainer } from 'react-hot-loader'
+
+const render = (Component) => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('container')
+  )
+}
+
+render(App)
+
+if (module.hot) {
+  module.hot.accept(['./components/app', './webgl/app'], () => {
+    render(App)
+  })
+}
