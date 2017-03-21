@@ -17,6 +17,9 @@
     "babel-preset-stage-2": "^6.22.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0",
+    "glslify-loader": "^1.0.2",
+    "ify-loader": "^1.0.4",
+    "raw-loader": "^0.5.1",
     "react-hot-loader": "3.0.0-beta.6",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
@@ -25,9 +28,17 @@
     "webpack-dev-server": "2.1.0-beta.0"
   },
   "dependencies": {
+    "@superguigui/wagner": "^0.1.5",
+    "glslify": "^6.0.2",
+    "glslify-fancy-imports": "^1.0.1",
     "gsap": "^1.19.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "three": "^0.84.0"
+  },
+  "glslify": {
+    "transform": [
+      "glslify-fancy-imports"
+    ]
   }
 }

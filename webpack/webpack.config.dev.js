@@ -34,6 +34,15 @@ module.exports = {
             options: {
             }
           }]
+      },
+      {
+        test: /node_modules/,
+        loader: 'ify-loader'
+      },
+      {
+        test: /\.(glsl|frag|vert)$/,
+        exclude: /node_modules/,
+        loader: 'raw!glslify'
       }
     ]
   },
