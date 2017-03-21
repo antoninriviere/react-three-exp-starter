@@ -1,5 +1,7 @@
 import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial, Vector3 } from 'three'
 
+import Stats from 'stats-js'
+
 import OrbitControls from 'orbit-controls'
 
 import Wagner from '@superguigui/wagner'
@@ -34,11 +36,26 @@ class SceneObj {
 
     this.camera.position.z = 1000
 
-    this.controls = new OrbitControls()
+    this.initControls()
+    this.initPostProcessing()
+    this.initStats()
+  }
+
+  initControls () {
+    this.controls = new OrbitControls({
+      position: this.camera.position.toArray()
+    })
     this.target = new Vector3()
     this.camera.lookAt(this.target)
+  }
 
-    this.initPostProcessing()
+  initStats () {
+    this.stats = new Stats()
+    this.stats.domElement.style.position = 'absolute'
+    this.stats.domElement.style.left = '0px'
+    this.stats.domElement.style.top = '0px'
+
+    document.body.appendChild(this.stats.domElement)
   }
 
   initPostProcessing () {
@@ -73,6 +90,7 @@ class SceneObj {
       //this.composer.pass(this.glitchPass)
     }
     this.composer.toScreen()
+    this.stats.update()
   }
 
   resize (newWidth, newHeight) {
