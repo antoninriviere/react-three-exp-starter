@@ -13,7 +13,7 @@ class SceneObj {
     this.scene = new Scene()
 
     const geometry = new BoxGeometry(200, 200, 200)
-    const material = new MeshBasicMaterial({ color: 0xff0000, wireframe: true })
+    const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
 
     const mesh = new Mesh(geometry, material)
     this.scene.add(mesh)

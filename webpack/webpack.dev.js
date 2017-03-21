@@ -6,10 +6,9 @@ const port = 8080
 
 const compiler = Webpack(webpackConfig)
 const server = new WebpackDevServer(compiler, {
-  inline: true,
-  hot: true,
+  hot: false,
   contentBase: path.resolve(__dirname, '../dist'),
-  publicPath: 'http://localhost:' + port + '/',
+  publicPath: '/',
   stats: {
     colors: true
   }

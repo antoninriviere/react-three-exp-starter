@@ -47,10 +47,4 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ]
-  /*
-  devServer: {
-    hot: true,
-    contentBase: path.resolve(__dirname, '../dist'),
-    publicPath: '/static/'
-  }*/
 }
