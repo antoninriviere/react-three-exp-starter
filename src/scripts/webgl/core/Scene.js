@@ -1,4 +1,4 @@
-import { Scene, PerspectiveCamera, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial, Vector3 } from 'three'
+import {Scene, PerspectiveCamera, WebGLRenderer, Vector3} from 'three'
 
 import Stats from 'stats-js'
 
@@ -10,34 +10,46 @@ import Wagner from '@superguigui/wagner'
 import VignettePass from '@superguigui/wagner/src/passes/vignette/VignettePass'
 import GlitchPass from '@superguigui/wagner/src/passes/glitch/GlitchPass'
 
-class SceneObj {
-  constructor (canvas) {
-    this.canvas = canvas
+class SceneObj extends Scene {
+  constructor (options) {
+    super()
+
+    const defaultOptions = {
+      camera: {
+        fov: 45,
+        near: 1,
+        far: 1000,
+        position: new Vector3(0, 0, 100)
+      },
+      renderer: {
+        antialias: false,
+        pixelRatio: window.devicePixelRatio
+      },
+      debug: {
+        stats: false,
+        orbitControls: false
+      },
+      postProcessing: {
+        active: false
+      }
+    }
+
+    this.options = {...defaultOptions, ...options}
+
+    this.container = this.options.container
 
     this.width = window.innerWidth
     this.height = window.innerHeight
 
-    this.options = {
-      usePostProcessing: true
-    }
-
-    this.renderer = new WebGLRenderer(this.width, this.height, { canvas: this.canvas, antialias: true })
-    this.camera = new PerspectiveCamera(45, this.width / this.height, 1, 2000)
-    this.scene = new Scene()
-
-    const geometry = new BoxGeometry(200, 200, 200)
-    const material = new MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-
-    this.mesh = new Mesh(geometry, material)
-    this.scene.add(this.mesh)
-
+    this.renderer = new WebGLRenderer(this.width, this.height, this.options.renderer)
     this.renderer.setSize(this.width, this.height)
-    this.renderer.setClearColor(0xFFFFFF, 1)
-    this.canvas.appendChild(this.renderer.domElement)
 
-    this.camera.position.z = 1000
+    this.container.appendChild(this.renderer.domElement)
 
-    this.initGui()
+    this.camera = new PerspectiveCamera(this.options.fov, this.width / this.height, this.options.near, this.options.far)
+    this.camera.position.copy(this.options.camera.position)
+
+    // this.initGui()
     this.initControls()
     this.initPostProcessing()
     this.initStats()
@@ -77,14 +89,6 @@ class SceneObj {
     this.glitchPass = new GlitchPass({})
   }
 
-  add (child) {
-    this.scene.add(child)
-  }
-
-  remove (child) {
-    this.scene.remove(child)
-  }
-
   render () {
     this.controls.update()
     this.camera.position.fromArray(this.controls.position)
@@ -93,7 +97,7 @@ class SceneObj {
 
     // this.renderer.render(this.scene, this.camera)
     this.composer.reset()
-    this.composer.render(this.scene, this.camera)
+    this.composer.render(this, this.camera)
     if (this.options.usePostProcessing === true) {
       this.composer.pass(this.vignettePass)
       // this.composer.pass(this.glitchPass)

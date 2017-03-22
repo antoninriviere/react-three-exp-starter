@@ -1,20 +1,33 @@
 import { TweenMax } from 'gsap'
 
-import SceneObj from './scene/scene'
+import SceneObj from './core/scene'
+
+import { Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
 
 class App {
-  constructor (canvas) {
-    this.scene = new SceneObj(canvas)
+  constructor (container) {
+    this.scene = new SceneObj({
+      container: container
+    })
 
     this.DELTA_TIME = 0
     this.LAST_TIME = Date.now()
 
+    this.initMeshes()
     this.addListeners()
   }
 
   addListeners () {
     window.addEventListener('resize', this.onResize.bind(this))
     TweenMax.ticker.addEventListener('tick', this.update.bind(this))
+  }
+
+  initMeshes () {
+    const geometry = new BoxGeometry(20, 20, 20)
+    const material = new MeshBasicMaterial({ color: 0xff0000, wireframe: true })
+
+    this.mesh = new Mesh(geometry, material)
+    this.scene.add(this.mesh)
   }
 
   update () {

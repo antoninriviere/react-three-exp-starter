@@ -3,6 +3,7 @@
 _DS_Store
 .DS_Store
 idea/
+.idea/
 
 node_modules/
 ### Node template
