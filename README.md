@@ -20,8 +20,6 @@ yarn run build
 ## TODO : 
 * autoprefixer
 * fix HMR or use express
-* global clean
-* architecture
 
 ### Linting
 * Add stylint

@@ -24,6 +24,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^2.1.1",
+    "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.0.0",
     "glslify-loader": "^1.0.2",
     "ify-loader": "^1.0.4",
@@ -35,7 +36,9 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "2.1.0-beta.0"
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-dev-server": "2.1.0-beta.0",
+    "webpack-hot-middleware": "^2.17.1"
   },
   "dependencies": {
     "@superguigui/wagner": "^0.1.5",

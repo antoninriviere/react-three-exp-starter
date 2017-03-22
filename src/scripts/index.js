@@ -14,10 +14,10 @@ const render = (Component) => {
   )
 }
 
-render(App)
-
 if (module.hot) {
-  module.hot.accept(['./components/app', './webgl/app'], () => {
+  console.log('module is hot')
+  module.hot.accept('./components/app', () => {
+    console.info('render the app')
     render(App)
   })
 }
