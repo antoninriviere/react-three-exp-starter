@@ -1,0 +1,55 @@
+// Responsive
+media_queries = {
+  mobile: "screen and (max-width:1024px)"
+  mobileXS: "screen and (max-width:1024px) and (max-height: 400px) and (orientation: portrait)"
+  mobileLandscape: "screen and (max-width:1024px) and (orientation: landscape)"
+  mobilePortrait: "screen and (max-width:1024px) and (orientation: portrait)"
+  desktop: "screen and (min-width:1024px)"
+  desktopXL: "screen and (min-width:1920px)"
+  desktopXS: "screen and (min-width: 1025px) and (max-width: 1366px)"
+  portrait: "(orientation: portrait)"
+  landscape: "(orientation: landscape)"
+}
+
+breakpoint(breakpoints)
+  conditions = ()
+  for breakpoint in breakpoints
+    push(conditions, media_queries[breakpoint])
+  conditions = join(", ", conditions)
+  @media conditions
+    {block}
+
+
+font-size(value = 16, relative = true)
+  font-size: value px
+
+  if relative
+    font-size: pxToEm(value)
+  else
+    font-size: pxToRem(value)
+
+fontFace(font-name, font-src, font-weight = false, font-style = false, formats = eot woff2 woff truetype svg, local-font-name = font-name, svg-font-name = font-name)
+  @font-face
+    fonts = ()
+    font-family font-name
+    if local
+      local-name = local-font-name ? local-font-name : font-name
+      push(fonts, 'local("' + local-name +'")')
+    if eot in formats
+      push(fonts, 'url("' + font-src + '.eot?iefix") format("emebedded-opentype")')
+    if woff2 in formats
+      push(fonts, 'url("' + font-src + '.woff2") format("woff2")')
+    if woff in formats
+      push(fonts, 'url("' + font-src + '.woff") format("woff")')
+    if opentype in formats || otf in formats
+      push(fonts, 'url("' + font-src + '.otf") format("opentype")')
+    if truetype in formats || ttf in formats
+      push(fonts, 'url("' + font-src + '.ttf") format("truetype")')
+    if svg in formats
+      svg-name = svg-font-name ? svg-font-name : font-name
+      push(fonts, 'url("' + font-src + '.svg#' + svg-name + '") format("svg")')
+    src unquote(join(", ", fonts))
+    if font-weight
+      font-weight font-weight
+    if font-style
+      font-style font-style
