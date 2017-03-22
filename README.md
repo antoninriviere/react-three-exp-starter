@@ -1,5 +1,14 @@
 # three-exp-starter
-My WIP light experiment starter w/ Three.js, Stylus, Babel, Webpack 2
+Web experiments starter using : 
+* React
+* Three.js
+* Wagner
+* Orbit controls
+* controlKit GUI
+* Stylus
+* Webpack
+* ES6 with Babel
+* Standard JS linting
 
 ### install : 
 yarn install
@@ -9,14 +18,12 @@ yarn run dev
 yarn run build
 
 ## TODO : 
-
 * autoprefixer
 * fix HMR or use express
 * global clean
+* architecture
 
 ### Linting
-* Add EsLint
-* Add standard configuration for esLint
 * Add stylint
 * Add stylint loader
 
