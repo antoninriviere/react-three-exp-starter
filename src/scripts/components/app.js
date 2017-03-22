@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
-import styles from 'Styles/app.styl'
-/* eslint-enable no-unused-vars */
+
+import 'Styles/app.styl'
+
 import React, { Component } from 'react'
 
 import Experience from './blocks/experience'
