@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const eslintFriendlyFormatter = require('eslint-friendly-formatter')
 
 module.exports = {
   context: path.resolve(__dirname, '../src/scripts'),
@@ -16,6 +17,18 @@ module.exports = {
   },
   module: {
     rules: [
+      // linters
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        options: {
+          parser: 'babel-eslint',
+          formatter: eslintFriendlyFormatter
+        }
+      },
+
       {
         test: /\.js$/,
         use: [{

@@ -1,40 +1,35 @@
-import { TweenMax } from "gsap"
+import { TweenMax } from 'gsap'
 
 import SceneObj from './scene/scene'
 
 class App {
+  constructor (canvas) {
+    this.scene = new SceneObj(canvas)
 
-    constructor(canvas) {
-        this.scene = new SceneObj(canvas)
+    this.DELTA_TIME = 0
+    this.LAST_TIME = Date.now()
 
-        this.DELTA_TIME = 0
-        this.LAST_TIME = Date.now()
+    this.addListeners()
+  }
 
-        this.addListeners()
-    }
+  addListeners () {
+    window.addEventListener('resize', this.onResize.bind(this))
+    TweenMax.ticker.addEventListener('tick', this.update.bind(this))
+  }
 
-    addListeners() {
+  update () {
+    this.DELTA_TIME = Date.now() - this.LAST_TIME
+    this.LAST_TIME = Date.now()
 
-        window.addEventListener( 'resize', this.onResize.bind(this) )
-        TweenMax.ticker.addEventListener( 'tick', this.update.bind(this) )
-    }
+    this.scene.render()
+  }
 
-    update() {
+  onResize (evt) {
+    this.width = window.innerWidth
+    this.height = window.innerHeight
 
-        this.DELTA_TIME = Date.now() - this.LAST_TIME
-        this.LAST_TIME = Date.now()
-
-        this.scene.render()
-    }
-
-    onResize( evt ) {
-
-        this.width = window.innerWidth
-        this.height = window.innerHeight
-
-        this.scene.resize( this.width, this.height )
-    }
-
+    this.scene.resize(this.width, this.height)
+  }
 }
 
 export default App

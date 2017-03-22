@@ -26,7 +26,7 @@ class SceneObj {
     this.scene = new Scene()
 
     const geometry = new BoxGeometry(200, 200, 200)
-    const material = new MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+    const material = new MeshBasicMaterial({ color: 0xff0000, wireframe: true })
 
     this.mesh = new Mesh(geometry, material)
     this.scene.add(this.mesh)
@@ -96,7 +96,7 @@ class SceneObj {
     this.composer.render(this.scene, this.camera)
     if (this.options.usePostProcessing === true) {
       this.composer.pass(this.vignettePass)
-      //this.composer.pass(this.glitchPass)
+      // this.composer.pass(this.glitchPass)
     }
     this.composer.toScreen()
     this.stats.update()
@@ -109,7 +109,6 @@ class SceneObj {
     this.renderer.setSize(newWidth, newHeight)
     this.composer.setSize(newWidth, newHeight)
   }
-
 }
 
 export default SceneObj
