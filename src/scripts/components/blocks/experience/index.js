@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-// import ReactDOM from 'react-dom'
 
 import App from 'WebGL/app'
+import './style.styl'
 
 export default class Experience extends Component {
   componentDidMount () {

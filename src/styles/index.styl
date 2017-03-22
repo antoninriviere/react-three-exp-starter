@@ -1,7 +1,14 @@
-html, body {
-  background-color: aliceblue
-}
+html
+  font-size: 62.5%
 
-.experience {
-  width: 100%
-}
+body
+  font-size(16)
+  font-family: font-text--primary
+
+html, body
+  height: 100vh;
+  background-color: #000;
+  overflow hidden
+
+  +breakpoint(mobileLandscape)
+    background-color: #fff;
