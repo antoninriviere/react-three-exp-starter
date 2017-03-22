@@ -4,8 +4,6 @@ import Stats from 'stats-js'
 
 import OrbitControls from 'orbit-controls'
 
-import ControlKit from 'controlkit'
-
 import Wagner from '@superguigui/wagner'
 import VignettePass from '@superguigui/wagner/src/passes/vignette/VignettePass'
 import GlitchPass from '@superguigui/wagner/src/passes/glitch/GlitchPass'
@@ -49,16 +47,15 @@ class SceneObj extends Scene {
     this.camera = new PerspectiveCamera(this.options.fov, this.width / this.height, this.options.near, this.options.far)
     this.camera.position.copy(this.options.camera.position)
 
-    // this.initGui()
-    this.initControls()
     this.initPostProcessing()
-    this.initStats()
-  }
 
-  initGui () {
-    this.gui = new ControlKit()
-    this.mesh.position.range = [-10, 10]
-    this.gui.addPanel().addSlider(this.mesh.position, 'y', 'range')
+    if (this.options.debug.stats) {
+      this.initStats()
+    }
+
+    if (this.options.debug.orbitControls) {
+      this.initControls()
+    }
   }
 
   initControls () {
@@ -90,20 +87,28 @@ class SceneObj extends Scene {
   }
 
   render () {
-    this.controls.update()
-    this.camera.position.fromArray(this.controls.position)
-    this.camera.up.fromArray(this.controls.up)
-    this.camera.lookAt(this.target.fromArray(this.controls.direction))
+    if (this.options.debug.orbitControls) {
+      this.controls.update()
+      this.camera.position.fromArray(this.controls.position)
+      this.camera.up.fromArray(this.controls.up)
+      this.camera.lookAt(this.target.fromArray(this.controls.direction))
+    }
 
-    // this.renderer.render(this.scene, this.camera)
-    this.composer.reset()
-    this.composer.render(this, this.camera)
-    if (this.options.usePostProcessing === true) {
+    if (this.options.postProcessing.active) {
+      this.composer.reset()
+      this.composer.render(this, this.camera)
+
       this.composer.pass(this.vignettePass)
       // this.composer.pass(this.glitchPass)
+
+      this.composer.toScreen()
+    } else {
+      this.renderer.render(this, this.camera)
     }
-    this.composer.toScreen()
-    this.stats.update()
+
+    if (this.options.debug.stats) {
+      this.stats.update()
+    }
   }
 
   resize (newWidth, newHeight) {

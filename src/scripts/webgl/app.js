@@ -4,22 +4,35 @@ import SceneObj from './core/scene'
 
 import { Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
 
+import GUI from 'WebGL/utils/GUI'
+
 class App {
   constructor (container) {
     this.scene = new SceneObj({
-      container: container
+      container: container,
+      debug: {
+        orbitControls: true,
+        stats: true
+      }
     })
 
     this.DELTA_TIME = 0
     this.LAST_TIME = Date.now()
 
     this.initMeshes()
+    this.initGUI()
     this.addListeners()
   }
 
   addListeners () {
     window.addEventListener('resize', this.onResize.bind(this))
     TweenMax.ticker.addEventListener('tick', this.update.bind(this))
+  }
+
+  initGUI () {
+    this.mesh.position.range = [-10, 10]
+    GUI.panel
+      .addSlider(this.mesh.position, 'y', 'range')
   }
 
   initMeshes () {
