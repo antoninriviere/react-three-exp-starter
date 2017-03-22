@@ -5,8 +5,6 @@ import Stats from 'stats-js'
 import OrbitControls from 'orbit-controls'
 
 import Wagner from '@superguigui/wagner'
-import VignettePass from '@superguigui/wagner/src/passes/vignette/VignettePass'
-import GlitchPass from '@superguigui/wagner/src/passes/glitch/GlitchPass'
 
 class SceneObj extends Scene {
   constructor (options) {
@@ -47,7 +45,9 @@ class SceneObj extends Scene {
     this.camera = new PerspectiveCamera(this.options.fov, this.width / this.height, this.options.near, this.options.far)
     this.camera.position.copy(this.options.camera.position)
 
-    this.initPostProcessing()
+    if (this.options.postProcessing) {
+      this.initPostProcessing()
+    }
 
     if (this.options.debug.stats) {
       this.initStats()
@@ -79,11 +79,13 @@ class SceneObj extends Scene {
   initPostProcessing () {
     this.composer = new Wagner.Composer(this.renderer)
 
-    this.vignettePass = new VignettePass({
-      boost: 1.0,
-      reduction: 1.5
+    this.passes = []
+
+    this.options.postProcessing.passes.map(pass => {
+      if (pass.active) {
+        this.passes.push(pass.constructor())
+      }
     })
-    this.glitchPass = new GlitchPass({})
   }
 
   render () {
@@ -98,8 +100,9 @@ class SceneObj extends Scene {
       this.composer.reset()
       this.composer.render(this, this.camera)
 
-      this.composer.pass(this.vignettePass)
-      // this.composer.pass(this.glitchPass)
+      for (let i = 0; i < this.passes.length; i++) {
+        this.composer.pass(this.passes[i])
+      }
 
       this.composer.toScreen()
     } else {

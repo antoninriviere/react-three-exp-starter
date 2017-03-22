@@ -62,6 +62,7 @@ module.exports = {
   resolve: {
     alias: {
       WebGL: path.resolve(__dirname, '../src/scripts/webgl/'),
+      WebGLConfig: path.resolve(__dirname, '../src/scripts/webgl/config/'),
       Styles: path.resolve(__dirname, '../src/styles/')
     }
   },

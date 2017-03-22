@@ -6,14 +6,13 @@ import { Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
 
 import GUI from 'WebGL/utils/GUI'
 
+import Config from 'WebGLConfig'
+
 class App {
   constructor (container) {
     this.scene = new SceneObj({
       container: container,
-      debug: {
-        orbitControls: true,
-        stats: true
-      }
+      ...Config
     })
 
     this.DELTA_TIME = 0
