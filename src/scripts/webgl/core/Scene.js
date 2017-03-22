@@ -119,7 +119,10 @@ class SceneObj extends Scene {
     this.camera.updateProjectionMatrix()
 
     this.renderer.setSize(newWidth, newHeight)
-    this.composer.setSize(newWidth, newHeight)
+
+    if (this.composer) {
+      this.composer.setSize(newWidth, newHeight)
+    }
   }
 }
 
