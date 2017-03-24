@@ -18,8 +18,8 @@ render(App)
 
 if (module.hot) {
   module.hot.accept('./components/app', () => {
-    // window.location.reload()
-    const newApp = require('./components/app').default
-    render(newApp)
+    window.location.reload()
+    // const newApp = require('./components/app').default
+    // render(newApp)
   })
 }
