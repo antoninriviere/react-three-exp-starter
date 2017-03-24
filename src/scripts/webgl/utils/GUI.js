@@ -2,7 +2,15 @@ import ControlKit from 'controlkit'
 
 class GUI extends ControlKit {
   constructor (options) {
-    super(options)
+    // const container = document.createElement('div')
+    // container.id = 'controlKitContainer'
+    // document.getElementById('container').appendChild(container)
+
+    const finalOptions = {...options, ...{parentDomElementId: 'controlKitContainer'}}
+
+    console.log(finalOptions)
+
+    super(finalOptions)
 
     this.panel = this.addPanel()
   }

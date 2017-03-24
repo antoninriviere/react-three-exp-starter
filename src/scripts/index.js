@@ -8,16 +8,18 @@ import { AppContainer } from 'react-hot-loader'
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Component/>
     </AppContainer>,
     document.getElementById('container')
   )
 }
 
+render(App)
+
 if (module.hot) {
-  console.log('module is hot')
   module.hot.accept('./components/app', () => {
-    console.info('render the app')
-    render(App)
+    // window.location.reload()
+    const newApp = require('./components/app').default
+    render(newApp)
   })
 }

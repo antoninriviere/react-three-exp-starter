@@ -36,7 +36,7 @@ class App {
 
   initMeshes () {
     const geometry = new BoxGeometry(20, 20, 20)
-    const material = new MeshBasicMaterial({ color: 0x0000ff, wireframe: true })
+    const material = new MeshBasicMaterial({ color: 0xffffff, wireframe: true })
 
     this.mesh = new Mesh(geometry, material)
     this.scene.add(this.mesh)

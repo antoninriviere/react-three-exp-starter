@@ -73,7 +73,7 @@ class SceneObj extends Scene {
     this.stats.domElement.style.left = '0px'
     this.stats.domElement.style.top = '0px'
 
-    document.body.appendChild(this.stats.domElement)
+    this.container.appendChild(this.stats.domElement)
   }
 
   initPostProcessing () {
