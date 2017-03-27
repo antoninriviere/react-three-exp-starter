@@ -22,13 +22,14 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         enforce: 'pre',
-        loader: 'eslint-loader',
-        options: {
-          parser: 'babel-eslint',
-          formatter: eslintFriendlyFormatter
-        }
+        use: [{
+          loader: 'eslint-loader',
+          options: {
+            parser: 'babel-eslint',
+            formatter: eslintFriendlyFormatter
+          }
+        }]
       },
-
       {
         test: /\.js$/,
         use: [{
@@ -50,12 +51,17 @@ module.exports = {
       },
       {
         test: /node_modules/,
-        loader: 'ify-loader'
+        use: [
+          'ify-loader'
+        ]
       },
       {
         test: /\.(glsl|frag|vert)$/,
         exclude: /node_modules/,
-        loader: 'raw!glslify'
+        use: [
+          'raw-loader',
+          'glslify'
+        ]
       }
     ]
   },
