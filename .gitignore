@@ -5,6 +5,9 @@ _DS_Store
 idea/
 .idea/
 
+dist/*
+!dist/index.html
+
 node_modules/
 ### Node template
 # Logs

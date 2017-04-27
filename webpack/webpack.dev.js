@@ -29,7 +29,7 @@ app.use(webpackDevMiddleware(compiler, {
 }))
 
 app.use(webpackHotMiddleware(compiler))
-app.use(express.static(path.join(__dirname, '../dist')))
+app.use(express.static(path.join(__dirname, '../static')))
 
 app.listen(port, ip, error => {
   if (error) throw error
@@ -41,7 +41,7 @@ app.listen(port, ip, error => {
 
 /* const server = new WebpackDevServer(compiler, {
   hot: false,
-  contentBase: path.resolve(__dirname, '../dist'),
+  contentBase: path.resolve(__dirname, '../static'),
   publicPath: '/',
   stats: {
     colors: true
