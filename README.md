@@ -1,25 +1,23 @@
 # three-exp-starter
-My WIP light experiment starter w/ Three.js, Stylus, Babel, Webpack 2
+3D Experiment starter to build cool stuff :rocket:
 
 ### install : 
-yarn install
+yarn
 ### dev :
-yarn run dev
+yarn dev
 ### prod :
-yarn run build
+yarn build
 
-## TODO : 
+## Technologies
 
-### Make better build for prod :
-* Add Html loader plugin
-* Add css autoprefixer
-* Add copy webpack plugin
-
-### Linting
-* Add EsLint
-* Add standard configuration for esLint
-* Add stylint
-* Add stylint loader
+* Three.js
+* Stylus
+* ES6 w/ Babel
+* Webpack 2
+* StandardJs linting with eslint
+* Wagner
+* ControlKit
+* Orbit controls
 
 
-By http://antonin.space
+By Yannis Jonckheere(https://twitter.com/JSinnay) & Antonin Riviere(https://twitter.com/AntoninRiviere)
