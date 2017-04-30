@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 
 module.exports = {
   context: path.resolve(__dirname, '../src/scripts'),
@@ -14,12 +15,27 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.json$/,
+        loader: 'json'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        use: [{
+          loader: 'eslint-loader',
+          options: {
+            parser: 'babel-eslint',
+            formatter: eslintFriendlyFormatter
+          }
+        }]
+      },
+      {
         test: /\.js$/,
         use: [{
-          loader: 'babel-loader',
-          options: { presets: ['es2015'] },
+          loader: 'babel-loader'
         }],
-        exclude: [/node_modules/],
+        exclude: [/node_modules/]
       },
       {
         test: /\.styl$/,
