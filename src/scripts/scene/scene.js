@@ -16,8 +16,6 @@ class SceneObj {
     const mesh = new Mesh(geometry, material)
     this.scene.add(mesh)
 
-    console.log(this.scene)
-
     this.renderer.setSize(this.width, this.height)
     document.body.appendChild(this.renderer.domElement)
 

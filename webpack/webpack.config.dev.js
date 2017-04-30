@@ -48,8 +48,31 @@ module.exports = {
             }
           }],
       },
+      {
+        test: /\.(png|svg|jpg)$/,
+        use: 'file-loader?name=image/[name].[ext]'
+      },
+      {
+        test: /node_modules/,
+        loader: 'ify-loader'
+      },
+      {
+        test: /\.(glsl|frag|vert)$/,
+        exclude: /node_modules/,
+        use: [
+          'raw-loader',
+          'glslify'
+        ]
+      }
     ],
   },
+  resolve: {
+    alias: {
+      Config: path.resolve(__dirname, '../src/scripts/config/'),
+      Core: path.resolve(__dirname, '../src/scripts/core/'),
+      Utils: path.resolve(__dirname, '../src/scripts/utils/'),
+    }
+  }
   /*plugins: [
     new ExtractTextPlugin({
       filename: '[name].bundle.css',

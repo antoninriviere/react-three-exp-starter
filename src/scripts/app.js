@@ -1,44 +1,62 @@
-import styles from '../styles/app.styl'
+import '../styles/app.styl'
 
+import { TweenMax } from 'gsap'
 
-import { TweenMax } from "gsap"
+import { AmbientLight } from 'three'
 
-import SceneObj from './scene/scene'
+import SceneObj from './core/scene'
+
+import Cube from './meshes/cube'
+
+import Config from 'Config'
 
 class App {
+  constructor (container) {
+    this.scene = new SceneObj({
+      container: container,
+      ...Config
+    })
 
-    constructor() {
+    this.container = container
 
-        this.scene = new SceneObj()
+    this.DELTA_TIME = 0
+    this.LAST_TIME = Date.now()
 
-        this.DELTA_TIME = 0
-        this.LAST_TIME = Date.now()
+    this.initMeshes()
+    this.initLights()
+    this.addListeners()
+  }
 
-        this.addListeners()
-    }
+  initMeshes () {
+    this.cube = new Cube()
+    this.scene.add(this.cube)
+  }
 
-    addListeners() {
+  initLights () {
+    this.ambientLight = new AmbientLight(0x111111)
+    this.scene.add(this.ambientLight)
+  }
 
-        window.addEventListener( 'resize', this.onResize.bind(this) )
-        TweenMax.ticker.addEventListener( 'tick', this.update.bind(this) )
-    }
+  addListeners () {
+    window.addEventListener('resize', this.onResize.bind(this))
+    TweenMax.ticker.addEventListener('tick', this.update.bind(this))
+  }
 
-    update() {
+  update () {
+    this.DELTA_TIME = Date.now() - this.LAST_TIME
+    this.LAST_TIME = Date.now()
 
-        this.DELTA_TIME = Date.now() - this.LAST_TIME
-        this.LAST_TIME = Date.now()
+    this.cube.update()
 
-        this.scene.render()
-    }
+    this.scene.render()
+  }
 
-    onResize( evt ) {
+  onResize (evt) {
+    this.width = window.innerWidth
+    this.height = window.innerHeight
 
-        this.width = window.innerWidth
-        this.height = window.innerHeight
-
-        this.scene.resize( this.width, this.height )
-    }
-
+    this.scene.resize(this.width, this.height)
+  }
 }
 
 export default App
