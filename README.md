@@ -20,4 +20,4 @@ yarn build
 * Orbit controls
 
 
-By Yannis Jonckheere(https://twitter.com/JSinnay) & Antonin Riviere(https://twitter.com/AntoninRiviere)
+By [Yannis Jonckheere](https://twitter.com/JSinnay) & [Antonin Riviere](https://twitter.com/AntoninRiviere)
