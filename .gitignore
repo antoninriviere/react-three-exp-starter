@@ -4,4 +4,5 @@ _DS_Store
 
 node_modules/
 
-dist/
+dist/*
+!dist/index.htmldist/
